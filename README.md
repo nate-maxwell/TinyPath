@@ -22,6 +22,7 @@ Currently only a handful of basic functions are implemented:
 Over time this will grow.
 
 ### Example Code
+Script:
 
 ```go
 package main
@@ -69,4 +70,29 @@ func main() {
 	fmt.Println("Drive:", drive)
 	fmt.Println()
 }
+```
+
+Output:
+```
+Original Path: C:/git/GoPathlib/test_file.txt
+
+Posixed: C:/git/GoPathlib/test_file.txt
+
+Parent: C:/git/GoPathlib
+
+Parents: [
+C:/git/GoPathlib
+C:/git
+C:
+]
+
+Stem: test_file
+Suffix: .txt
+Name: test_file.txt
+
+With Stem: C:/git/GoPathlib/New.txt
+With Suffix: C:/git/GoPathlib/test_file.json
+With Name: C:/git/GoPathlib/Newer.fbx
+
+Drive: C:
 ```
