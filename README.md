@@ -9,14 +9,15 @@ and does not rely on any third party libraries.
 Currently only a handful of basic functions are implemented:
 
 - Path() - Constructor
-- path.parent
-- path.parents
-- path.suffix
-- path.stem
-- path.name
-- path.with_suffix
-- path.with_stem
-- path.with_name
+- path.Parent
+- path.Parents
+- path.Suffix
+- path.Stem
+- path.Name
+- path.With_suffix
+- path.With_stem
+- path.With_name
+- path.Drive
 
 Over time this will grow.
 
@@ -32,7 +33,7 @@ import (
 )
 
 func main() {
-	MyPath := pathlib.Path("T:/git/GoPathlib/test_file.txt")
+	MyPath := pathlib.Path("T:/git/TinyPath/test_file.txt")
 	fmt.Println("Original Path:", MyPath.AsPosix())
 	fmt.Println()
 
@@ -62,6 +63,10 @@ func main() {
 
 	newName := MyPath.WithName("Newer.fbx")
 	fmt.Println("With Name:", newName.AsPosix())
+	fmt.Println()
+
+	drive := MyPath.Drive()
+	fmt.Println("Drive:", drive)
 	fmt.Println()
 }
 ```
