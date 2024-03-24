@@ -1,12 +1,25 @@
 package pathlib
 
 import (
+	"runtime"
 	"strings"
 )
 
-/* --------------------------------------------------------------------------------------------------------------
+var defaultSlash string
+
+func init() {
+	os := runtime.GOOS
+	switch os {
+	case "windows":
+		defaultSlash = "\\"
+	default:
+		defaultSlash = "/"
+	}
+}
+
+/* ----------------------------------------------------------------------------------------------------------
 Path object core & constructor
--------------------------------------------------------------------------------------------------------------- */
+---------------------------------------------------------------------------------------------------------- */
 
 type PathStruct struct {
 	path string
@@ -15,6 +28,7 @@ type PathStruct struct {
 
 func Path(args ...any) *PathStruct {
 	var params []string
+	sep := defaultSlash
 
 	for _, obj := range args {
 		switch v := obj.(type) {
@@ -31,24 +45,27 @@ func Path(args ...any) *PathStruct {
 
 	}
 
-	path := strings.Join(params, "\\")
-	return &PathStruct{path, "\\"}
+	path := strings.Join(params, sep)
+	return &PathStruct{path, sep}
 }
 
-/* --------------------------------------------------------------------------------------------------------------
+/* ----------------------------------------------------------------------------------------------------------
 Path functions
--------------------------------------------------------------------------------------------------------------- */
+---------------------------------------------------------------------------------------------------------- */
+
+// ----------Posix----------
 
 // Converts PathStruct path to a posix path.
 func (p PathStruct) AsPosix() string {
 	return strings.Replace(p.path, "\\", "/", -1)
 }
 
+// ----------Parents----------
+
 // Returns the parent directory to the PathStruct Path.
 // Else returns the PathStruct path if there is no parent.
 func (p PathStruct) Parent() *PathStruct {
 	posixed := p.AsPosix()
-	doubleDrive := strings.HasPrefix(posixed, "//")
 
 	lastIndex := strings.LastIndex(posixed, "/")
 	if lastIndex == -1 {
@@ -57,15 +74,9 @@ func (p PathStruct) Parent() *PathStruct {
 
 	posParent := posixed[:lastIndex]
 	vanilla := strings.Replace(posParent, "/", "\\", -1)
-	if doubleDrive {
-		numSlashes := len(strings.Split(vanilla, "/"))
-		if numSlashes < 2 {
-			vanilla = strings.Join([]string{"/", vanilla}, "")
-		}
-	}
+	newVal := vanilla
 
-	// return &PathStruct{vanilla, "\\"}
-	return Path(vanilla)
+	return Path(newVal)
 }
 
 // Returns an array of PathStructs for each parent directory of the given PathStruct.
@@ -79,6 +90,9 @@ func (p PathStruct) Parents() []*PathStruct {
 	curPath := p
 
 	for i := 0; i < parentCount-1; i++ {
+		if curPath.Parent().path == "" {
+			continue
+		}
 		parent := *curPath.Parent()
 		parents = append(parents, &parent)
 		curPath = parent
@@ -86,6 +100,8 @@ func (p PathStruct) Parents() []*PathStruct {
 
 	return parents
 }
+
+// ----------Suffix, Stem, Name----------
 
 // Returns the file suffix for the given path, e.g. "C:/dir/file.txt" will return ".txt".
 // Else returns an empty string if no suffix could be found.
@@ -160,4 +176,17 @@ func (p PathStruct) WithStem(stem string) *PathStruct {
 	}
 
 	return p.WithName(newName)
+}
+
+// ----------Drive, Root----------
+
+// Returns the drive letter for the given PathStruct, e.g. "C:"
+func (p PathStruct) Drive() string {
+	posixed := p.AsPosix()
+	temp := strings.Split(posixed, ":")[0]
+	if temp == posixed {
+		return ""
+	}
+	drive := strings.Join([]string{temp, ":"}, "")
+	return drive
 }
