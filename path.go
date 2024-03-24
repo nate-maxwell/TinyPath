@@ -48,6 +48,8 @@ func (p PathStruct) AsPosix() string {
 // Else returns the PathStruct path if there is no parent.
 func (p PathStruct) Parent() *PathStruct {
 	posixed := p.AsPosix()
+	doubleDrive := strings.HasPrefix(posixed, "//")
+
 	lastIndex := strings.LastIndex(posixed, "/")
 	if lastIndex == -1 {
 		return &p
@@ -55,6 +57,12 @@ func (p PathStruct) Parent() *PathStruct {
 
 	posParent := posixed[:lastIndex]
 	vanilla := strings.Replace(posParent, "/", "\\", -1)
+	if doubleDrive {
+		numSlashes := len(strings.Split(vanilla, "/"))
+		if numSlashes < 2 {
+			vanilla = strings.Join([]string{"/", vanilla}, "")
+		}
+	}
 
 	// return &PathStruct{vanilla, "\\"}
 	return Path(vanilla)

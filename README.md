@@ -64,5 +64,4 @@ func main() {
 	fmt.Println("With Name:", newName.AsPosix())
 	fmt.Println()
 }
-
 ```

@@ -8,7 +8,7 @@ import (
 This will get replaced with an actual unit test in the future. */
 
 func test() {
-	MyPath := Path("T:/git/GoPathlib/test_file.txt")
+	MyPath := Path("//git/GoPathlib/test_file.txt")
 	fmt.Println("Original Path:", MyPath.AsPosix())
 	fmt.Println()
 
