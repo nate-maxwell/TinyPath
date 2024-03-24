@@ -1,5 +1,5 @@
 # Tiny Path
-A simplistic Go version of Python's Pathlib.
+A very simplistic and lightweight Go version of Python's Pathlib.
 
 This is mostly a sandbox for me to learn Go with, but you can use anything you like.
 
