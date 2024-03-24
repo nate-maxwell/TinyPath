@@ -1,29 +1,13 @@
-# GoPathlib
-A Go version of Python's Pathlib.
+package pathlib
 
-This is mostly a sandbox for me to learn Go with, but you can use anything you like.
+import (
+	"fmt"
+)
 
-The goal of this repo is to create a reliable path system from Go, that is OS-agnostic,
-and does not rely on any third pary libraries.
+/* A basic non-unit test for making sure basic functions work for now.
+This will get replaced with an actual unit test in the future. */
 
-Currently only a handful of basic functions are implemented:
-
-- Path() - Constructor
-- path.parent
-- path.parents
-- path.suffix
-- path.stem
-- path.name
-- path.with_suffix
-- path.with_stem
-- path.with_name
-
-Over time this will grow.
-
-### Example Code
-
-```go
-func main() {
+func test() {
 	MyPath := Path("T:/git/GoPathlib/test_file.txt")
 	fmt.Println("Original Path:", MyPath.AsPosix())
 	fmt.Println()
@@ -34,11 +18,11 @@ func main() {
 	fmt.Println("Parent:", MyPath.Parent().AsPosix())
 	fmt.Println()
 
-	fmt.Println("Parents:")
+	fmt.Println("Parents: [")
 	for _, path := range MyPath.Parents() {
 		fmt.Println(path.AsPosix())
 	}
-
+	fmt.Println("]")
 	fmt.Println()
 
 	fmt.Println("Stem:", MyPath.Stem())
@@ -56,4 +40,3 @@ func main() {
 	fmt.Println("With Name:", newName.AsPosix())
 	fmt.Println()
 }
-```
