@@ -1,3 +1,3 @@
-module pathlib
+module github.com/nate-maxwell/TinyPath
 
-go 1.21.2
+go 1.22.1
