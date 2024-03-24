@@ -52,7 +52,7 @@ func Path(args ...any) *PathStruct {
 Path functions
 ---------------------------------------------------------------------------------------------------------- */
 
-// ----------Posix----------
+// ----------Path Conversion----------
 
 // Converts PathStruct path to a posix path.
 func (p PathStruct) AsPosix() string {
