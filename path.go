@@ -8,8 +8,7 @@ import (
 var defaultSlash string
 
 func init() {
-	os := runtime.GOOS
-	switch os {
+	switch runtime.GOOS {
 	case "windows":
 		defaultSlash = "\\"
 	default:
