@@ -23,8 +23,16 @@ Over time this will grow.
 ### Example Code
 
 ```go
+package main
+
+import (
+	"fmt"
+
+	pathlib "github.com/nate-maxwell/TinyPath"
+)
+
 func main() {
-	MyPath := Path("T:/git/GoPathlib/test_file.txt")
+	MyPath := pathlib.Path("T:/git/GoPathlib/test_file.txt")
 	fmt.Println("Original Path:", MyPath.AsPosix())
 	fmt.Println()
 
@@ -34,11 +42,11 @@ func main() {
 	fmt.Println("Parent:", MyPath.Parent().AsPosix())
 	fmt.Println()
 
-	fmt.Println("Parents:")
+	fmt.Println("Parents: [")
 	for _, path := range MyPath.Parents() {
 		fmt.Println(path.AsPosix())
 	}
-
+	fmt.Println("]")
 	fmt.Println()
 
 	fmt.Println("Stem:", MyPath.Stem())
@@ -56,4 +64,5 @@ func main() {
 	fmt.Println("With Name:", newName.AsPosix())
 	fmt.Println()
 }
+
 ```
