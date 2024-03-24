@@ -4,7 +4,7 @@ A very simplistic and lightweight Go version of Python's Pathlib.
 This is mostly a sandbox for me to learn Go with, but you can use anything you like.
 
 The goal of this repo is to create a reliable path system from Go, that is OS-agnostic,
-and does not rely on any third pary libraries.
+and does not rely on any third party libraries.
 
 Currently only a handful of basic functions are implemented:
 
