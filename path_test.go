@@ -8,7 +8,7 @@ import (
 This will get replaced with an actual unit test in the future. */
 
 func test() {
-	MyPath := Path("//git/GoPathlib/test_file.txt")
+	MyPath := Path("T:/git/TinyPath/test_file.txt")
 	fmt.Println("Original Path:", MyPath.AsPosix())
 	fmt.Println()
 
@@ -38,5 +38,9 @@ func test() {
 
 	newName := MyPath.WithName("Newer.fbx")
 	fmt.Println("With Name:", newName.AsPosix())
+	fmt.Println()
+
+	drive := MyPath.Drive()
+	fmt.Println("Drive:", drive)
 	fmt.Println()
 }
