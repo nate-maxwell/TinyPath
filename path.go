@@ -1,20 +1,9 @@
 package pathlib
 
 import (
-	"runtime"
+	"os"
 	"strings"
 )
-
-var defaultSlash string
-
-func init() {
-	switch runtime.GOOS {
-	case "windows":
-		defaultSlash = "\\"
-	default:
-		defaultSlash = "/"
-	}
-}
 
 /* ----------------------------------------------------------------------------------------------------------
 Path object core & constructor
@@ -27,7 +16,7 @@ type PathStruct struct {
 
 func Path(args ...any) *PathStruct {
 	var params []string
-	sep := defaultSlash
+	sep := string(os.PathSeparator)
 
 	for _, obj := range args {
 		switch v := obj.(type) {
